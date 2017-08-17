@@ -16,7 +16,7 @@ class QuizzDAO
     public static $dbName = "maindb";
     public static $nameCategory = "Category";
     public static $nameNumTest = "Num_test";
-    public static $nameNumQuestion = "Num_test";
+    public static $nameNumQuestion = "Num_question";
     public static $nameQuantityAns = "Quantity_ans";
     public static $nameNumCorrectAns = "Num_correct_ans";
 
@@ -111,10 +111,10 @@ class QuizzDAO
     {
         $numberFormat = sprintf("%03d%02d",$questionArray[QuizzDAO::$nameNumTest],$questionArray[QuizzDAO::$nameNumQuestion]);
 
-
+    
        // $addr = $questionArray[QuizzDAO::$nameCategory].$questionArray[QuizzDAO::$nameNumTest].$questionArray[QuizzDAO::$nameNumQuestion].$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
 
-        $addr = $questionArray[QuizzDAO::$nameCategory].$numberFormat.$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
+        $addr = $questionArray[QuizzDAO::$nameCategory].$numberFormat.$questionArray[QuizzDAO::$nameNumCorrectAns].$questionArray[QuizzDAO::$nameQuantityAns].".jpg";
 
 
         $numQuestion = $questionArray[QuizzDAO::$nameNumQuestion];

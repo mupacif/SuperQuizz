@@ -6,7 +6,10 @@
 </head>
 <body>
 {% for question in questions %}
-  <img src="{{ asset('/images/'~question.addr) }}"> <br/>
+  <img src="{{ asset('/images/'~question.addr) }}"> <br/> numQuestion : {{question.numQuestion}},
+  quantityAns : {{question.quantityAns}},
+  correctAnswer : {{question.correctAnswer}} <br>
+ 
 {% endfor %}
 </body>
 </html>

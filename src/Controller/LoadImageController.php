@@ -19,15 +19,15 @@ class LoadImageController
             /***
              *  to get infos from the name
              */
-
+            //ex : A1 001 01 23
             $category = substr($nameOfFile,0,2);
             $numOfTest= substr($nameOfFile,2,3);
             $numOfQuestion = substr($nameOfFile,5,2);
-            $answers = substr($nameOfFile,7,1);
-            $correctAsnwer = substr($nameOfFile,8,1);
+            $correctAnswer = substr($nameOfFile,7,1);
+            $answers = substr($nameOfFile,8,1);
 
 
-            $response = "category:".$category." / numOfTest : ".$numOfTest." / numOfQuestion : ".$numOfQuestion." / answers: ".$answers." / correctAsnwer : ".$correctAsnwer;
+            $response = "category:".$category." / numOfTest : ".$numOfTest." / numOfQuestion : ".$numOfQuestion." / answers: ".$answers." / correctAsnwer : ".$correctAnswer;
 
             // insertion inside your database
 
@@ -36,7 +36,7 @@ class LoadImageController
             $path = 'images/';
             $file->move($path, $file->getClientOriginalName());
 
-            $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Quantity_Ans'=> $answers,'Num_Correct_Ans'=>$correctAsnwer));
+            $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Num_Correct_Ans'=>$correctAnswer,'Quantity_Ans'=> $answers));
 
 
 
@@ -48,3 +48,5 @@ class LoadImageController
     }
 
 }
+
+
