@@ -9,6 +9,7 @@
 namespace Quizz\Controller;
 
 
+use Quizz\DAO\QuizzDAO;
 use Silex\Application;
 
 class ScriptController
@@ -21,7 +22,7 @@ class ScriptController
         $answers = substr($nameOfFile,7,1);
         $correctAsnwer = substr($nameOfFile,8,1);
 
-        $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Quanity_Ans'=> $answers,'Num_Correct_Ans'=>$correctAsnwer));
+        $app['db']->insert(QuizzDAO::$dbName, array(QuizzDAO::$nameCategory=>$category,QuizzDAO::$nameNumTest=>$numOfTest,QuizzDAO::$nameNumQuestion=>$numOfQuestion,QuizzDAO::$nameQuantityAns=> $answers,QuizzDAO::$nameNumCorrectAns=>$correctAsnwer));
 
 
 

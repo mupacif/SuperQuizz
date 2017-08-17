@@ -13,8 +13,14 @@ class QuizzDAO
      */
     private $db;
 
-    private $dbName = "maindb";
-    
+    public static $dbName = "maindb";
+    public static $nameCategory = "Category";
+    public static $nameNumTest = "Num_test";
+    public static $nameNumQuestion = "Num_test";
+    public static $nameQuantityAns = "Quantity_ans";
+    public static $nameNumCorrectAns = "Quantity_ans";
+
+
     public function __construct(Connection $db)
     {
         $this->db=$db;
@@ -27,7 +33,7 @@ class QuizzDAO
      */
     public function getQuestionsOf($category,$numTest)
     {
-        $sql = "SELECT * FROM ".$this->dbName." where Category = '".$category."' AND Num_test = ".$numTest;
+        $sql = "SELECT * FROM ".QuizzDAO::$dbName." where ".QuizzDAO::$nameCategory." = '".$category."' AND ".QuizzDAO::$nameNumTest." = ".$numTest;
         $results = $this->db->fetchAll($sql);
         $test = new Test();
         $test->setCategory($category);
@@ -49,7 +55,7 @@ class QuizzDAO
      */
     public function getAllCategories()
     {
-        $sqlSelectAllCategories ="SELECT DISTINCT Category FROM ".$this->dbName;
+        $sqlSelectAllCategories ="SELECT DISTINCT ".QuizzDAO::$nameCategory." FROM ".QuizzDAO::$dbName;
 
         $results = $this->db->fetchAll($sqlSelectAllCategories);
         
@@ -67,7 +73,7 @@ class QuizzDAO
 
     public function getAllCategoriesName()
     {
-        $sqlSelectAllCategories ="SELECT DISTINCT Category FROM ".$this->dbName;
+        $sqlSelectAllCategories ="SELECT DISTINCT ".QuizzDAO::$nameCategory." FROM ".QuizzDAO::$dbName;
 
         $results = $this->db->fetchAll($sqlSelectAllCategories);
 
@@ -85,12 +91,12 @@ class QuizzDAO
 
     public function getAllTestsOfCategory($name)
     {
-        $sqlSelectAllTestsOfACategory = "SELECT DISTINCT Num_test FROM ".$this->dbName." WHERE Category ='".$name."'";
+        $sqlSelectAllTestsOfACategory = "SELECT DISTINCT ".QuizzDAO::$nameNumTest." FROM ".QuizzDAO::$dbName." WHERE Category ='{$name}'";
         $results = $this->db->fetchAll($sqlSelectAllTestsOfACategory);
 
         $tests = [];
         foreach($results as $testArray) {
-            $tests[] = $testArray['Num_test'];
+            $tests[] = $testArray[QuizzDAO::$nameNumTest];
         }
         return $tests;
     }
@@ -98,15 +104,16 @@ class QuizzDAO
     public function buildCategory(array $categoryName)
     {
         $category = new Category();
-        $category->setName($categoryName['Category']);
+        $category->setName($categoryName[QuizzDAO::$nameCategory]);
         return $category;
     }
     public function buildQuestion(array $questionArray)
     {
-        $addr = "{$questionArray['Category']}{$questionArray['Num_test']}{$questionArray['Num_question']}{$questionArray['Quantity_ans']}{$questionArray['Num_correct_ans']}.jpg";
-        $numQuestion = $questionArray['Num_question'];
-        $quantityAns = $questionArray['Quantity_ans'];
-        $correctAns = $questionArray['Num_correct_ans'];
+        $addr = $questionArray[QuizzDAO::$nameCategory].$questionArray[QuizzDAO::$nameNumTest].$questionArray[QuizzDAO::$nameNumQuestion].$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
+
+        $numQuestion = $questionArray[QuizzDAO::$nameNumQuestion];
+        $quantityAns = $questionArray[QuizzDAO::$nameQuantityAns];
+        $correctAns = $questionArray[QuizzDAO::$nameNumCorrectAns];
 
         $question = new Question();
         $question->setAddr($addr);
