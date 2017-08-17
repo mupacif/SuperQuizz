@@ -6,18 +6,13 @@ $app= new Silex\Application();
 $app['debug'] = true;
 
 $app->register(new Silex\Provider\DoctrineServiceProvider());
-$app['db.options'] = array(
-            'driver'    => 'pdo_mysql',
-            'host'      => 'localhost',
-            'dbname'    => 'quizz',
-            'user'      => 'root',
-            'password'  => 'password',
-            'charset'   => 'utf8mb4',
-    );
+
+require __DIR__.'/../app/dev.php';
 
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__.'/../views',
 ));
+
 
 
 $app['dao.quizz'] = function($app){

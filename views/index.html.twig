@@ -12,11 +12,11 @@
       <ul>
           {% for test in category.tests %}
           <li>
-                Test {{ test }}
+                <a href="{{ path('quizz_question', {'category':category.name,'numTest':test}) }}"> Test {{ test }}</a>
           </li>
           {% endfor %}
       </ul>
   {% endfor %}
 
-
+</body>
 </html>
