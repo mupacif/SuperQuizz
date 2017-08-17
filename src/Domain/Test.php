@@ -7,12 +7,12 @@ class Test
     
     private $questions;
     
-    public getQuestions()
+    public function getQuestions()
     {
         return $this->questions;
     }
     
-       public setQuestions($questions)
+       public function setQuestions($questions)
     {
         $this->questions=$questions;
         return $this;

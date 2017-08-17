@@ -1,13 +1,7 @@
 <?php 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-$app->before(function (Request $request) {
-    if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-        $data = json_decode($request->getContent(), true);
-        $request->request->replace(is_array($data) ? $data : array());
-    }
-});
-
+use Quizz\Domain\Category;
 
 
 
@@ -44,7 +38,7 @@ $app->post('/load',function(Request $request) use($app)
         $path = 'images/';
         $file->move($path, $file->getClientOriginalName());
         
-        $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Quanity_Ans'=> $answers,'Num_Correct_Ans'=>$correctAsnwer));
+        $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Quantity_Ans'=> $answers,'Num_Correct_Ans'=>$correctAsnwer));
         
         
         
@@ -115,7 +109,11 @@ $app->get('/script/PutFilesIntoDb',function() use($app)
  $app->get('/tests/twig/index',function() use($app)
 {
   $categories = $app['dao.quizz']->findAll();
+  $response = "";
+
   return $app['twig']->render('index.html.twig', array('categories' => $categories));
+
+
 });
 
 

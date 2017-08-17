@@ -20,23 +20,38 @@ class QuizzDAO
     
     public function findAll()
     {
-        $sql="select DISTINCT Category from ".$dbName;
-        $result = $this->db->fetchAll($sql);
+        $sqlSelectAllCategories ="SELECT DISTINCT Category FROM ".$this->dbName;
+
+        $results = $this->db->fetchAll($sqlSelectAllCategories);
         
         $categories = [];
-        foreach($categories as $category)
+        foreach($results as $categoryArray)
         {
-            $categories[] = $this->buildCategory($category);
+            $category = $this->buildCategory($categoryArray);
+            $category->setTests($this->getAllTestsOfCategory($category->getName()));
+            $categories[] = $category;
         }
         
         return $categories;
       
     }
+
+    public function getAllTestsOfCategory($name)
+    {
+        $sqlSelectAllTestsOfACategory = "SELECT DISTINCT Num_test FROM ".$this->dbName." WHERE Category ='".$name."'";
+        $results = $this->db->fetchAll($sqlSelectAllTestsOfACategory);
+
+        $tests = [];
+        foreach($results as $testArray) {
+            $tests[] = $testArray['Num_test'];
+        }
+        return $tests;
+    }
     
-    public function buildCategory($categoryName)
+    public function buildCategory(array $categoryName)
     {
         $category = new Category();
-        $category->setName($categoryName);
+        $category->setName($categoryName['Category']);
         return $category;
     }
     

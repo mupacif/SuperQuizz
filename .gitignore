@@ -1,4 +1,6 @@
 /vendor/
 dploy.yml
-/web/Quizz.db
+/web/images/
+composer.lock
+.idea/
 

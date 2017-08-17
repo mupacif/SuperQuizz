@@ -5,7 +5,18 @@
     <title>Quizz</title>
 </head>
 <body>
+
+
   {% for category in categories %}
-       {{category.name}}
+       {{category.name}} <br>
+      <ul>
+          {% for test in category.tests %}
+          <li>
+                Test {{ test }}
+          </li>
+          {% endfor %}
+      </ul>
   {% endfor %}
+
+
 </html>
