@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Test test</title>
+</head>
+<body>
+{% for question in questions %}
+  <img src="{{ asset('/images/'~question.addr) }}"> <br/>
+{% endfor %}
+</body>
+</html>

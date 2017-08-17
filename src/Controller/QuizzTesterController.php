@@ -19,12 +19,9 @@ class QuizzTesterController
     public function indexAction($category,$numTest,Application $app)
     {
         $questions = $app['dao.quizz']->getQuestionsOf($category,$numTest);
-        $response = "";
-        foreach ($questions as $question)
-        {
-            $response = $response.$question->getAddr()."</br>";
-        }
-       return new Response($response);
+
+        return $app['twig']->render('test.html.twig', array('questions' => $questions));
+
     }
 
 }

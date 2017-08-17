@@ -18,7 +18,7 @@ class QuizzDAO
     public static $nameNumTest = "Num_test";
     public static $nameNumQuestion = "Num_test";
     public static $nameQuantityAns = "Quantity_ans";
-    public static $nameNumCorrectAns = "Quantity_ans";
+    public static $nameNumCorrectAns = "Num_correct_ans";
 
 
     public function __construct(Connection $db)
@@ -109,7 +109,13 @@ class QuizzDAO
     }
     public function buildQuestion(array $questionArray)
     {
-        $addr = $questionArray[QuizzDAO::$nameCategory].$questionArray[QuizzDAO::$nameNumTest].$questionArray[QuizzDAO::$nameNumQuestion].$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
+        $numberFormat = sprintf("%03d%02d",$questionArray[QuizzDAO::$nameNumTest],$questionArray[QuizzDAO::$nameNumQuestion]);
+
+
+       // $addr = $questionArray[QuizzDAO::$nameCategory].$questionArray[QuizzDAO::$nameNumTest].$questionArray[QuizzDAO::$nameNumQuestion].$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
+
+        $addr = $questionArray[QuizzDAO::$nameCategory].$numberFormat.$questionArray[QuizzDAO::$nameQuantityAns].$questionArray[QuizzDAO::$nameNumCorrectAns].".jpg";
+
 
         $numQuestion = $questionArray[QuizzDAO::$nameNumQuestion];
         $quantityAns = $questionArray[QuizzDAO::$nameQuantityAns];
