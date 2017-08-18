@@ -6,6 +6,13 @@
 </head>
 <body>
 
+<!---if teacher is connected-->
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('uploadPage') }}">load pictures</a>
+{% endif %}
+
+
+<a href="{{ path('quizz_logout') }}">Logout</a>
 
   {% for category in categories %}
        {{category.name}} <br>
