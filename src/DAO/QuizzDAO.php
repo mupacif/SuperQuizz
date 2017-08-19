@@ -47,7 +47,22 @@ class QuizzDAO
         }
 
         $test->setQuestions($questions);
-        return $questions;
+        return $test;
+    }
+    
+    /***
+     * retrieve a question of a give category, test number and question number
+     */
+        public function getQuestion($category,$numTest,$numQuestion)
+    {
+        $sql = "SELECT * FROM ".QuizzDAO::$dbName." where ".QuizzDAO::$nameCategory." = '".$category."' AND ".QuizzDAO::$nameNumTest." = ".$numTest." AND ".QuizzDAO::$nameNumQuestion." = ".$numQuestion;
+        $results = $this->db->fetchAll($sql);
+        $questions = [];
+        foreach($results as $questionsArray)
+        {
+            $questions[] = $this->buildQuestion($questionsArray);
+        }
+        return $questions[0];
     }
 
     /***

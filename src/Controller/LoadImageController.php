@@ -4,6 +4,7 @@ namespace Quizz\Controller;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Quizz\DAO\QuizzDAO;
 
 class LoadImageController
 {
@@ -36,8 +37,9 @@ class LoadImageController
             $path = 'images/';
             $file->move($path, $file->getClientOriginalName());
 
-            $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Num_Correct_Ans'=>$correctAnswer,'Quantity_Ans'=> $answers));
-
+          /*  $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Num_Correct_Ans'=>$correctAnswer,'Quantity_Ans'=> $answers));
+*/
+            $app['db']->insert(QuizzDAO::$dbName, array(QuizzDAO::$nameCategory=>strval($category),QuizzDAO::$nameNumTest=>$numOfTest,QuizzDAO::$nameNumQuestion=>$numOfQuestion,QuizzDAO::$nameQuantityAns=> $answers,QuizzDAO::$nameNumCorrectAns=>$correctAnswer));
 
 
             return new Response($response);

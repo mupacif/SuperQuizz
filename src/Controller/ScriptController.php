@@ -19,10 +19,10 @@ class ScriptController
         $category = substr($nameOfFile,0,2);
         $numOfTest= substr($nameOfFile,2,3);
         $numOfQuestion = substr($nameOfFile,5,2);
-        $answers = substr($nameOfFile,7,1);
-        $correctAsnwer = substr($nameOfFile,8,1);
+        $correctAnswer = substr($nameOfFile,7,1);
+        $answers = substr($nameOfFile,8,1);
 
-        $app['db']->insert(QuizzDAO::$dbName, array(QuizzDAO::$nameCategory=>$category,QuizzDAO::$nameNumTest=>$numOfTest,QuizzDAO::$nameNumQuestion=>$numOfQuestion,QuizzDAO::$nameQuantityAns=> $answers,QuizzDAO::$nameNumCorrectAns=>$correctAsnwer));
+        $app['db']->insert(QuizzDAO::$dbName, array(QuizzDAO::$nameCategory=>strval($category),QuizzDAO::$nameNumTest=>$numOfTest,QuizzDAO::$nameNumQuestion=>$numOfQuestion,QuizzDAO::$nameQuantityAns=> $answers,QuizzDAO::$nameNumCorrectAns=>$correctAnswer));
 
 
 

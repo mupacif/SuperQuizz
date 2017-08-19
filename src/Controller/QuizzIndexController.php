@@ -15,7 +15,7 @@ class QuizzIndexController
 {
     public function indexAction(Application $app)
     {
-
+         $app['session']->clear();
         $categories = $app['dao.quizz']->getAllCategories();
         return $app['twig']->render('index.html', array('categories' => $categories));
     }

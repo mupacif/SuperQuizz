@@ -5,11 +5,54 @@
     <title>Test test</title>
 </head>
 <body>
-{% for question in questions %}
-  <img src="{{ asset('/images/'~question.addr) }}"> <br/> numQuestion : {{question.numQuestion}},
+  
+
+{#  top menu #}
+   <a href="{{ path('quizz_home') }}"> Home page</a>
+  <br>
+  
+{#  progress bar#}
+  <progress value="{{correctAnswers| length}}" max="{{numberOfQuestions}}"></progress> {{correctAnswers| length}}/{{numberOfQuestions}}
+  <br>
+  {% for r in correctAnswers%}
+      {{r}}
+  {% endfor %}
+  <br>
+    {% if not finished %}
+{#  picture#}
+  <img src="{{ asset('/images/'~question.addr) }}"> <br/>
+{# debug text #}
+  numQuestion : {{question.numQuestion}},
   quantityAns : {{question.quantityAns}},
-  correctAnswer : {{question.correctAnswer}} <br>
+  correctAnswer : {{question.correctAnswer}}:{{ asset('/images/'~question.addr) }} <br>
+  
+ {# answer#}
+  {% if numQuestion != numberOfQuestions %}
+  <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion+1})}}" method="POST">
+      {% else %}
+  <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion})}}" method="POST">
+ {% endif %}
  
+ 
+  {% for i in 1..question.quantityAns  %}
+  
+      <input type="radio" name="answer" value="{{i}}"/>
+  
+  <span>{{i}}</span><br />
 {% endfor %}
+ <input type="hidden" name="numQuestion" value="{{numQuestion}}"/>
+ 
+ <input type="submit" value="next">
+</form>
+
+
+ 
+ {% else %}
+   finished
+   
+   {% endif %}
+
 </body>
+
 </html>
+

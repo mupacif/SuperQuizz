@@ -20,7 +20,9 @@ $app->get('/quizz/admin/uploadPage',"Quizz\Controller\QuizzIndexController::Load
  * quizz page
  */
 
-$app->get('/quizz/test/{category}/{numTest}',"Quizz\Controller\QuizzTesterController::indexAction")->bind('quizz_question');
+$app->match('/quizz/test/{category}_{numTest}_{numQuestion}',"Quizz\Controller\QuizzTesterController::indexAction")
+->value('numQuestion',1)
+->bind('quizz_question')->method('GET|POST');
 
 
 /***
@@ -41,7 +43,7 @@ $app->get('/api/categories',"Quizz\Controller\ApiRestController::getAllCategorie
 
 /***
  * Script to read files from folders
- * then put into db
+ * then put into db 
  */
 $app->get('/script/PutFilesIntoDb',"Quizz\Controller\ScriptController::putFilesIntoDb");
 
@@ -50,7 +52,7 @@ $app->get('/login', function(Request $request) use ($app) {
         'error'         => $app['security.last_error']($request),
         'last_username' => $app['session']->get('_security.last_username'),
     ));
-})->bind('login');;
+})->bind('login');
 
 
 $app->get('/script/setUpUsers',
@@ -89,7 +91,37 @@ $app->get('/script/setUpUsers',
             return new Response("success");
         }else
             return new Response("fail");
-
     });
 
 
+/***
+ * test 
+ */
+ $app->match('/tests/session/{id}',
+ function($id,Request $request) use($app)
+ {
+     
+    
+     if($request->getMethod() == "POST" )
+     {
+        
+       $id2 = $request->get('id2');
+       
+       if(null === $values = $app['session']->get('values'))
+       {
+           $app['session']->set('values', []);
+       }
+        
+        print_r($values);
+        echo "post {$id2} ";
+        
+        $id=$id2;
+         $values[$id] = $request->get('ans1');
+         $app['session']->set('values', $values);
+         
+         if($id > 5)
+           $app['session']->clear();
+     }
+     
+      return $app['twig']->render('session.html.twig', array('id' => $id));
+ })->value('id',1)->bind('test_session')->method('GET|POST');
