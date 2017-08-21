@@ -56,13 +56,13 @@ class QuizzTesterController
                              
                              
                          //db inputs
-                             $correctAns = $questions[$questionNum-2]->getCorrectAnswer();
+                             $correctAns = $questions[$questionNum-1]->getCorrectAnswer();
                          
                       //debug   print_r(array("qn:"=>$questionNum,"ca"=>$correctAns,"ans"=>$questionAnswer));
                   
                          
                              //save if the answer correspond to answer
-                              $correctAnswers[] = ($correctAns == $questionAnswer)?"V":"X";
+                              $correctAnswers[] = ($correctAns == $questionAnswer)?true:false;
                              
                              
                              

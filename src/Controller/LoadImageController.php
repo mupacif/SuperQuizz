@@ -34,7 +34,7 @@ class LoadImageController
 
 
 
-            $path = 'images/';
+            $path = 'web/images/';
             $file->move($path, $file->getClientOriginalName());
 
           /*  $app['db']->insert('maindb', array('Category'=>$category,'Num_Test'=>$numOfTest,'Num_Question'=>$numOfQuestion,'Num_Correct_Ans'=>$correctAnswer,'Quantity_Ans'=> $answers));
@@ -42,7 +42,9 @@ class LoadImageController
             $app['db']->insert(QuizzDAO::$dbName, array(QuizzDAO::$nameCategory=>strval($category),QuizzDAO::$nameNumTest=>$numOfTest,QuizzDAO::$nameNumQuestion=>$numOfQuestion,QuizzDAO::$nameQuantityAns=> $answers,QuizzDAO::$nameNumCorrectAns=>$correctAnswer));
 
 
-            return new Response($response);
+          /* debug  return new Response($response);*/
+            
+             return $app->redirect($app["url_generator"]->generate("uploadPage"));
         } else {
             return new Response("An error ocurred. Did you really send a file?");
         }

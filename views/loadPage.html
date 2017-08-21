@@ -3,6 +3,8 @@
     <title>Загрузка файлов на сервер</title>
 </head>
 <body>
+       <a href="{{ path('quizz_home') }}">  Выбрать биле </a>
+       <br>
 <h2><p><b> Форма для загрузки файлов </b></p></h2>
 <form action="{{ path('loadImage') }}" method="post" enctype="multipart/form-data">
     <input type="file" name="file"><br>

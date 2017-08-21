@@ -1,28 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>Test test</title>
-</head>
-<body>
+    <head>
+        <meta charset=utf8>
+        <link href="http//allfont.ru/allfont.css?fonts=ubuntu"
+        rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('/web/css/style.css') }}">
+    </head>
+    <body>
+<header>
+<div>
+  <h2>Билет 2</h2>
+    </header>
   
 
 {#  top menu #}
-   <a href="{{ path('quizz_home') }}"> Home page</a>
+   <a href="{{ path('quizz_home') }}">  Выбрать биле </a>
   <br>
   
-{#  progress bar#}
+{#  progress bar
   <progress value="{{correctAnswers| length}}" max="{{numberOfQuestions}}"></progress> {{correctAnswers| length}}/{{numberOfQuestions}}
+ #}
+ <br>
+  
+
   <br>
   
-{#  display of correct/failed answers#}
-  {% for r in correctAnswers%}
-       {{ loop.index }} ( {{r}} )
-  {% endfor %}
-  <br>
+  <div id="table">
+      {#  display of correct/failed answers#}
+{#      {% for r in correctAnswers%}
+         
+             <div class="cell {{ (r) ? 'correct' : 'wrong' }}" >{{r}}</div>
+      {% endfor %}#}
   
   
-  
+
+        {% for i in 1..numberOfQuestions%}
+        
+           
+             
+             {% if correctAnswers is not empty and i <= (correctAnswers|length) %}
+             
+               <div class="cell  {{ (correctAnswers[i-1] ) ? 'correct' : 'wrong' }}" >{{i}}</div>
+               
+             {% else %}
+             
+               <div class="cell" >{{i}}</div>
+             {% endif %}
+             
+        {% endfor %}
+
+    </div>
+    
+<br/>
   
     {% if not finished %}
 {#  picture#}
@@ -58,16 +88,18 @@
             
               {% for i in 1..question.quantityAns  %}
               
-                                     <input type="radio" id="a{{i}}" name="answer"  value="{{i}}"  @click="checkCorrectAnswer({{i}})"  :disabled="finished"/>
-                                     <label for="a{{i}}" id="l{{i}}">{{i}}</label><br />
+              <label class="radio-inline" for="a{{i}}" id="l{{i}}"><input type="radio" id="a{{i}}" name="answer"  value="{{i}}"  @click="checkCorrectAnswer({{i}})"  :disabled="finished"/> {{i}}</label>
+              
+                                     
+                                   {#  <label for="a{{i}}" id="l{{i}}">{{i}}</label><br />#}
               {% endfor %}
     
               {# /Display of answers #}
           
           
           <input type="hidden" name="numQuestion" value="{{numQuestion}}"/>
-         
-          <input type="submit" value="next"  v-show="finished" @click="send()">
+         <br/>
+          <input type="submit" value="ПРОВЕРИТЬ"  v-show="finished" @click="send()">
          </form>
          
   </div>
@@ -100,14 +132,17 @@ methods:
          document.getElementById("l"+{{question.correctAnswer}}).style.color="green";
         if(id == {{question.correctAnswer}}) 
         {
+            //CORRECT ANSWER
          this.correctResult = "correct answer";
          
-         document.getElementById("showResult").style.color="green";
+         document.getElementById("showResult").className += "correct_ans";
         }
         else
         {
+            
+            //WRONG ANSWER
           this.correctResult = "wrong answer, correct one was : "+{{question.correctAnswer}}; 
-           document.getElementById("showResult").style.color="red";
+           document.getElementById("showResult").className += "wrong_ans";
         }
          
          

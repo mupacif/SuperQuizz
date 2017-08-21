@@ -1,13 +1,79 @@
-<html>
-<head>
 
-</head>
-<body>
-<form action="{{ path('quizz_login_check') }}" method="post">
-    {{ error | replace({"Bad credentials." : "Invalid username or password."}) }}
-    <input type="text" name="_username" value="{{ last_username }}" />
-    <input type="password" name="_password" value="" />
-    <input type="submit" />
-</form>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset=utf8>
+        <link href="http//allfont.ru/allfont.css?fonts=ubuntu"
+        rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <style>
+      body{
+          font-family: 'Ubuntu', arial;
+          color:#3B3939;
+      }
+         #button{
+             margin-top:10px;
+             
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    
+    background-color: #00983e;
+     color: white;
+     border:2px solid #00983e;
+     border-radius: 10px;
+
+     font-size:17px;
+     font-family: 'Ubuntu', arial;
+     width:150px;
+     height: 40px;
+}
+
+    #button:hover {
+    background-color: white; 
+    color:#00983e;
+    border-radius: 0px;
+}
+         
+      </style>
+    </head>
+    <body align="center">
+        
+<div class="container" >
+    <div class="row">
+		<div class="span12">
+			<form class="form-horizontal" action="{{ path('quizz_login_check') }}" method="post">
+			  <fieldset>
+			    <div id="legend">
+			      <legend class="">Вход</legend>
+			    </div>
+			    <div class="control-group">
+			      <!-- Username -->
+			      <label class="control-label"  for="username">Логин</label>
+			      <div class="controls">
+			        <input type="text" id="username"  name="_username" value="{{ last_username }}" class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <!-- Password-->
+			      <label class="control-label" for="password">Пароль</label>
+			      <div class="controls">
+			        <input type="password" id="password" name="_password" value=""  class="input-xlarge">
+			      </div>
+			    </div>
+			    <div class="control-group">
+			      <!-- Button -->
+			      <div class="controls">
+			        <button id="button" class="btn btn-success"  >Войти</button>
+			        
+			      </div>
+			    </div>
+			  </fieldset>
+			</form>
+		</div>
+	</div>
+</div>
 </body>
 </html>
+
+
+
