@@ -8,14 +8,15 @@
         <link rel="stylesheet" href="{{ asset('/web/css/style.css') }}">
     </head>
     <body>
-<header>
+
 <div>
+    <header>
   <h2>Билет 2</h2>
     </header>
   
 
 {#  top menu #}
-   <a href="{{ path('quizz_home') }}">  Выбрать биле </a>
+   <a href="{{ path('quizz_home') }}">  Выбрать билет </a>
   <br>
   
 {#  progress bar
@@ -97,7 +98,7 @@
               {# /Display of answers #}
           
           
-          <input type="hidden" name="numQuestion" value="{{numQuestion}}"/>
+          <input type="hidden" name="questionNumber" value="{{numQuestion}}"/>
          <br/>
           <input type="submit" value="ПРОВЕРИТЬ"  v-show="finished" @click="send()">
          </form>
