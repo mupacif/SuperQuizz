@@ -3,5 +3,5 @@ dploy.yml
 /web/images/
 composer.lock
 .idea/
-/app/
+/app/dev.php
 
