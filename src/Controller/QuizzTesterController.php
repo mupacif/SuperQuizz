@@ -37,28 +37,34 @@ class QuizzTesterController
                if( null !== $question = $questions[$numQuestion-1])
                {
                 
-                
+                //save the corrects answers in php sessions
                      if(null === $correctAnswers = $app['session']->get('correctAnswers'))
                                     {
                                      
                                         $app['session']->set('correctAnswers', []);
                                     }
                                     
-                         //when user click on the button
+                         //when user click on the button use POST METHOD
                           if($request->getMethod() == "POST")
      {                    {
                            //create a session value
                         
                          
-                         //user's
+                         //user's input 
                              $questionNum=$request->get('numQuestion');
                              $questionAnswer=$request->get('answer');
-                         //db 
-                             $correctAns = $questions[$questionNum-1]->getCorrectAnswer();
+                             
+                             
+                         //db inputs
+                             $correctAns = $questions[$questionNum-2]->getCorrectAnswer();
                          
+                      //debug   print_r(array("qn:"=>$questionNum,"ca"=>$correctAns,"ans"=>$questionAnswer));
+                  
                          
                              //save if the answer correspond to answer
                               $correctAnswers[] = ($correctAns == $questionAnswer)?"V":"X";
+                             
+                             
                              
                               $finished=$numberOfQuestions <= count($correctAnswers);
                               

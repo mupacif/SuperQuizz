@@ -4,7 +4,7 @@
 </head>
 <body>
 <form action="{{ path('quizz_login_check') }}" method="post">
-    {{ error }}
+    {{ error | replace({"Bad credentials." : "Invalid username or password."}) }}
     <input type="text" name="_username" value="{{ last_username }}" />
     <input type="password" name="_password" value="" />
     <input type="submit" />

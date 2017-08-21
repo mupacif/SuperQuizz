@@ -7,3 +7,4 @@ $app['db.options'] = array(
     'password'  => '',
     'charset'   => 'utf8mb4',
 );
+

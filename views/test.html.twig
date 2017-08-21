@@ -14,43 +14,114 @@
 {#  progress bar#}
   <progress value="{{correctAnswers| length}}" max="{{numberOfQuestions}}"></progress> {{correctAnswers| length}}/{{numberOfQuestions}}
   <br>
+  
+{#  display of correct/failed answers#}
   {% for r in correctAnswers%}
-      {{r}}
+       {{ loop.index }} ( {{r}} )
   {% endfor %}
   <br>
+  
+  
+  
+  
     {% if not finished %}
 {#  picture#}
-  <img src="{{ asset('/images/'~question.addr) }}"> <br/>
-{# debug text #}
+  <img src="{{ asset('/web/images/'~question.addr) }}"> <br/>
+  
+  
+{# debug text  
   numQuestion : {{question.numQuestion}},
   quantityAns : {{question.quantityAns}},
-  correctAnswer : {{question.correctAnswer}}:{{ asset('/images/'~question.addr) }} <br>
-  
- {# answer#}
-  {% if numQuestion != numberOfQuestions %}
-  <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion+1})}}" method="POST">
-      {% else %}
-  <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion})}}" method="POST">
- {% endif %}
+  correctAnswer : {{question.correctAnswer}}:{{ asset('/web/images/'~question.addr) }} <br>
+ 
+   #} 
+   
+ {# answers#}
+ 
+   <div id="instance">
+       
+       
+       {% raw %}
+         <span id="showResult">{{ correctResult }}    </span>
+       {% endraw %}
+       
+       
+          {% if numQuestion != numberOfQuestions %}
+          <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion+1})}}" method="POST">
+              {% else %}
+          <form action="{{ path('quizz_question',{'category':category,'numTest':numTest,'numQuestion':numQuestion})}}" method="POST">
+         {% endif %}
  
  
-  {% for i in 1..question.quantityAns  %}
-  
-      <input type="radio" name="answer" value="{{i}}"/>
-  
-  <span>{{i}}</span><br />
-{% endfor %}
- <input type="hidden" name="numQuestion" value="{{numQuestion}}"/>
- 
- <input type="submit" value="next">
-</form>
+
+              {# Display of answers #}
+            
+              {% for i in 1..question.quantityAns  %}
+              
+                                     <input type="radio" id="a{{i}}" name="answer"  value="{{i}}"  @click="checkCorrectAnswer({{i}})"  :disabled="finished"/>
+                                     <label for="a{{i}}" id="l{{i}}">{{i}}</label><br />
+              {% endfor %}
+    
+              {# /Display of answers #}
+          
+          
+          <input type="hidden" name="numQuestion" value="{{numQuestion}}"/>
+         
+          <input type="submit" value="next"  v-show="finished" @click="send()">
+         </form>
+         
+  </div>
 
 
- 
  {% else %}
    finished
    
    {% endif %}
+
+  <script src="https://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+ <script type="text/javascript">
+    
+
+  	var vm = new Vue(
+  	{
+el:'#instance',
+data:{
+    finished:false,
+    correctResult: ''
+    
+},
+methods:
+{
+    
+    checkCorrectAnswer:function(id)
+    {
+
+        this.finished = true;
+         document.getElementById("l"+{{question.correctAnswer}}).style.color="green";
+        if(id == {{question.correctAnswer}}) 
+        {
+         this.correctResult = "correct answer";
+         
+         document.getElementById("showResult").style.color="green";
+        }
+        else
+        {
+          this.correctResult = "wrong answer, correct one was : "+{{question.correctAnswer}}; 
+           document.getElementById("showResult").style.color="red";
+        }
+         
+         
+    },
+    send:function()
+    {
+        //because disabled button doesnt work
+        this.finished =false;
+        console.log("send");
+    }
+    
+}
+});
+</script>
 
 </body>
 
